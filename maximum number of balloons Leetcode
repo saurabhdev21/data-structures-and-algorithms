@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        int alpha[27]={0};
+        for(int i=0;i<text.size();i++)
+        {
+            int val=text[i]-'a';
+            alpha[val]++;
+        }
+        int one_occ[]={0,1,13};
+        int two_occ[]={14,11};
+        int min_one=INT_MAX;
+        int min_two=INT_MAX;
+        int i=3;
+        while(i--)
+        {
+            min_one=min(min_one,alpha[one_occ[i]]);
+        }
+        i=2;
+        while(i--)
+        {
+            min_two=min(min_two,alpha[two_occ[i]]);
+        }
+        min_two=min_two/2;
+        return min(min_two,min_one);
+    }
+};
