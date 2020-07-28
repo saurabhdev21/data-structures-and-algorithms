@@ -1,0 +1,56 @@
+//by using stack
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int carry=0;
+        stack<char>as;
+        stack<char>bs;
+        for(int i=0;i<a.size();i++)
+        {
+            as.push(a[i]);
+        }
+        for(int i=0;i<b.size();i++)
+        {
+            bs.push(b[i]);
+        }
+        stack<int>ans;
+        while(!bs.empty()&&!as.empty())
+        {
+            int len=(as.top()-'0')+(bs.top()-'0')+carry;
+            carry=len/2;
+            len=len%2;
+            ans.push(len);
+            as.pop();
+            bs.pop();
+        }
+        while(!bs.empty())
+        {
+            int len=bs.top()-'0'+carry;
+            carry=len/2;
+            len=len%2;
+            ans.push(len);
+            bs.pop();
+        }
+        while(!as.empty())
+        {
+            int len=(as.top()-'0')+carry;
+            carry=len/2;
+            len=len%2;
+            ans.push(len);
+            as.pop();
+        }
+        if(carry!=0)
+        {
+            ans.push(carry);
+        }
+        string out="";
+        while(!ans.empty())
+        {
+            out.push_back((char)(ans.top()+'0'));
+            ans.pop();
+        }
+        return out;
+    }
+};
+
+// 
