@@ -1,0 +1,49 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        unordered_map<char,int>mag;
+        bool can_built=true;
+        for(int i=0;i<magazine.size();i++)
+        {
+            mag[magazine[i]]++;
+        }
+        for(int i=0;i<ransomNote.size();i++)
+        {
+            if(mag[ransomNote[i]]>0)
+            {
+                mag[ransomNote[i]]--;
+            }
+            else 
+            {
+                can_built=false;
+            }
+        }
+        return can_built;
+    }
+};
+
+//with using array only and not using map
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        int rans[27],mag[27];
+        for(int i=0;i<27;i++)
+        {
+            rans[i]=mag[i]=0;
+        }
+        for(auto i:ransomNote)
+        {
+            rans[i-97]++;
+        }
+        for(auto i:magazine)
+        {
+            mag[i-97]++;
+        }
+        for(int i=0;i<27;i++)
+        {
+            if(mag[i]<rans[i])
+            {return false;}
+        }
+        return true;
+    }
+};
