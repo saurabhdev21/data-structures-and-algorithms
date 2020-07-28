@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool buddyStrings(string A, string B) {
+        if(A.size()!=B.size())
+        {
+            return false;
+        }
+        int replace[2000]={0};
+        int i=0;
+        for(int len=0;len<B.size();len++)
+        {
+            if(A[len]!=B[len])
+            {
+                replace[i]=len;
+                i++;
+            }
+        }
+        if(i==0)
+        {
+            set<char> s;
+            for(int i=0;i<A.size();i++)
+            {
+                if(s.find(A[i])!=s.end())
+                {
+                    return true;
+                }
+                s.insert(A[i]);
+            }
+            return false;
+        }
+        swap(A[replace[0]],A[replace[1]]);
+        for(i=0;i<B.size();i++)
+        {
+            if(A[i]!=B[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+};
