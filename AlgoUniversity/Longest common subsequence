@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+
+ll lcs(string &s, string &t, ll firstPtr, ll secondPtr, ll** dp ){
+    for(ll first = 1;first<=firstPtr; first++){
+        for(ll second  = 1 ;second<=secondPtr ;second++){
+            if(s[first-1]== t[second-1]){
+                dp[first][second] = dp[first-1][second-1] +1;    
+            }
+            else {
+                dp[first][second] = max(dp[first-1][second], dp[first][second-1]);
+            }
+        }
+    }
+    return dp[firstPtr][secondPtr];
+}
+
+
+int main(){
+    string s,t;
+    cin>>s>>t;
+    ll sizeOfS = s.size();
+    ll sizeOfT = t.size();
+    ll** dp = new ll *[sizeOfS+1];
+    for(ll index= 0; index < sizeOfS+1; index++){
+        dp[index] =  new ll[sizeOfT+1]{0};
+    }
+    lcs(s,t, sizeOfS, sizeOfT, dp);
+    
+    cout<<dp[sizeOfS][sizeOfT];
+    return 0;
+}
