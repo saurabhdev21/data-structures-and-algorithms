@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main(){
+    string s, t;
+    cin>>s>>t;
+    ll size_1 = s.size();
+    ll size_2 = t.size();
+    ll dp[size_1+ 1][size_2+1];
+    for(ll i =0;i<=size_1;i++){
+        for(ll j=0;j<=size_2;j++){
+            if(i==0 || j==0) dp[i][j]=0;
+            else if(s[i-1] == t[j-1]){
+                dp[i][j] = 1+ dp[i-1][j-1];
+            } else {
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
+    }
+    cout<<dp[size_1][size_2]<<endl;
+    string answer ="";
+    ll i= size_1, j = size_2;
+    while(i>0 && j>0){
+        if(s[i-1] == t[j-1]){
+            answer += s[i-1];
+            i--, j--;
+        } else { 
+            if(dp[i-1][j] > dp[i][j-1]){
+                answer += s[i-1];
+                i--;
+            } else {
+                answer += t[j-1];
+                j--;
+            }
+        }
+    }
+    cout<<answer<<" "<<i<<" "<<j<<endl;
+    while(i>0){
+        answer += s[--i];
+    }
+    while(j>0){
+        answer += t[--j];
+    }
+    reverse(answer.begin(), answer.end());
+    cout<<answer;
+    return 0;
+}

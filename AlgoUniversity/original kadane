@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main(){
+    ll size;
+    cin>>size;
+    vector<ll> arr(size);
+    for(ll i=0;i<size;i++){
+        cin>>arr[i];
+    }
+    ll answer= arr[0];
+    ll prevSum = arr[0];
+    
+    for(ll i=1;i<size;i++){
+        prevSum = max(arr[i], prevSum + arr[i]);
+        answer =max(answer, prevSum);
+    }
+    cout<<answer;
+    
+    return 0;
+}
